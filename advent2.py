@@ -20,8 +20,8 @@ def split_input(s):
 
 
 def check_condition_1(line):
-    no_of_occurences = len(line[2]) - len(line[2].replace(line[1], ''))
-    return no_of_occurences >= line[0][0] and no_of_occurences <= line[0][1]
+    no_of_occurences = line[2].count(line[1])
+    return line[0][0] <= no_of_occurences <= line[0][1]
 
 
 def check_condition_2(line):
