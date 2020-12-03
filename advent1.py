@@ -3,9 +3,10 @@ from itertools import combinations
 from functools import reduce
 import argparse
 
-def find_numbers(number_to_find, list_of_numbers, no_of_entries):
+
+def find_numbers(target, list_of_numbers, no_of_entries):
     for combination in combinations(list_of_numbers, no_of_entries):
-        if sum(combination) == number_to_find:
+        if sum(combination) == target:
             return combination
 
 
@@ -23,7 +24,7 @@ def multiplier(t):
 
 def main(args):
     input = read_input(args.inputfile)
-    output = find_numbers(args.number_to_find, input, args.no_entries)
+    output = find_numbers(args.target, input, args.no_entries)
     print(multiplier(output))
 
 
@@ -31,7 +32,7 @@ def cli():
     parser = argparse.ArgumentParser()
     parser.add_argument('--inputfile', type=str)
     parser.add_argument('--no_entries', type=int)
-    parser.add_argument('--number_to_find', type=int)
+    parser.add_argument('--target', type=int)
     args = parser.parse_args()
     return args
 
