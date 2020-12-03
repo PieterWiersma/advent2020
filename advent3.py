@@ -23,6 +23,7 @@ def main(args):
     lis = []
     for step in steps:
         lis.append(move(inputfile, '#', step))
+    print([x for x in zip(lis, steps)])
     print(multiplier(lis))
 
 def cli():
