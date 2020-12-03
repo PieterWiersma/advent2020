@@ -16,27 +16,28 @@ def split_input(s):
     min_max = [int(x) for x in l[0].split('-')]
     required_letter =l[1][:1]
     password = l[2]
-    return (min_max, required_letter, password)
+    return min_max, required_letter, password
 
 
-def check_condition_1(line):
-    no_of_occurences = line[2].count(line[1])
-    return line[0][0] <= no_of_occurences <= line[0][1]
+def check_condition_1(min_max, required_letter, password):
+    no_of_occurences = password.count(required_letter)
+    return min_max[0] <= no_of_occurences <= min_max[1]
 
 
-def check_condition_2(line):
-    check_1 = line[2][line[0][0]-1] == line[1]
-    check_2 = line[2][line[0][1]-1] == line[1]
+def check_condition_2(min_max, required_letter, password):
+    check_1 = password[min_max[0]-1] == required_letter
+    check_2 = password[min_max[1]-1] == required_letter
     return int(check_1) + int(check_2) == 1
 
 
 def main(args):
     input = read_input(args.inputfile)
-    input = [split_input(x) for x in input]
     counter = 0
     for line in input:
-        counter = counter + int(check_condition_2(line))
+        min_max, required_letter, password = split_input(line)
+        counter += int(check_condition_2(min_max, required_letter, password))
     print(counter)
+
 
 def cli():
     parser = argparse.ArgumentParser()

@@ -13,7 +13,7 @@ def move(inputfile, tree, steps):
     while (position[1] < length_vert-1):
         position = [x + y for x, y in zip(position, steps)]
         check = inputfile[position[1]][position[0] % length_hor]
-        counter = counter + int(check == tree)
+        counter += int(check == tree)
     return counter
 
 
@@ -25,6 +25,7 @@ def main(args):
         lis.append(move(inputfile, '#', step))
     print([x for x in zip(lis, steps)])
     print(multiplier(lis))
+
 
 def cli():
     parser = ArgumentParser()
