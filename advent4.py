@@ -25,7 +25,7 @@ def check_assignment_1(input_str, requirements, trailing_char):
     for key in requirements.keys():
         if input_str.find(key + trailing_char) + 1:
             checksum += requirements[key]
-    print('checksum %s, line: %s' % (checksum, input_str))
+    #print('checksum %s, line: %s' % (checksum, input_str))
     return int(checksum == sum(requirements.values()))
 
 
@@ -57,7 +57,7 @@ def check_assignment_2(input_str, requirements):
                 funct_output = func(funct_output)
         if funct_output:
             checksum += 1
-    if checksum == 6: print('checksum %s input: %s \n\n ' % (checksum, input_str))
+    #if checksum == 6: print('checksum %s input: %s \n\n ' % (checksum, input_str))
     return int(checksum == len(requirements))
 
 
