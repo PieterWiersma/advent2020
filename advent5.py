@@ -10,28 +10,10 @@ def command_splitter(command):
     return bf_chars, rl_chars
 
 
-def half_stepper(bf_range, command):
-    steps = bf_range[1] - bf_range[0]
-    if command in ('F', 'L'):
-        bf_range[1] = bf_range[1] - steps / 2
-    elif command in ('B', 'R'):
-        bf_range[0] = bf_range[0] + steps / 2
-
-    return [floor(bf_range[0]), floor(bf_range[1])]
-
-
-def get_seat(command):
-    bf_range = [0, 127]
-    rl_range = [0, 7]
+def get_seat_id(command):
     bf_chars, rl_chars = command_splitter(command)
-
-    for command in bf_chars:
-        bf_range = half_stepper(bf_range, command)
-    bf_seat = bf_range[1]
-
-    for command in rl_chars:
-        rl_range = half_stepper(rl_range, command)
-    rl_seat = rl_range[1]
+    bf_seat = int(bf_chars.replace("B", "1").replace("F", "0"), 2)
+    rl_seat = int(rl_chars.replace("R", "1").replace("L", "0"), 2)
 
     id = bf_seat * 8 + rl_seat
     print('row %s, column %s, id %s' % (bf_seat, rl_seat, id))
@@ -48,7 +30,7 @@ def main(args):
     commands = [x.strip() for x in args.inputfile]
     ids = []
     for command in commands:
-        ids.append(get_seat(command))
+        ids.append(get_seat_id(command))
 
     print('max id %s' % max(ids) )
     print('seats not filled: %s' % find_seat(ids))
