@@ -21,17 +21,7 @@ def look_for_value(dataset, search_bag):
         for value in values:
             if value[1] == search_bag:
                 found_bags.append(key)
-    return found_bags, value[0]
-
-
-def recursive_product_seeker(dataset, search_bag):
-    l = []
-    for item in dataset[search_bag]:
-        if dataset[item[1]]:
-            l.append(item[0] * recursive_product_seeker(dataset, item[1]) + item[0])
-        else:
-            l.append(item[0])
-    return sum(l)
+    return found_bags
 
 
 def assignment_1(args):
@@ -43,16 +33,22 @@ def assignment_1(args):
     while search_for_bags:
         total_results = []
         for bag in search_for_bags:
-            results, _ = look_for_value(dataset, bag)
+            results = look_for_value(dataset, bag)
             bags_with_search_bag = list(set(bags_with_search_bag + results))
             total_results = total_results + results
-
-        if not total_results:
-            break
         search_for_bags = total_results
 
     print(len(bags_with_search_bag))
 
+
+def recursive_product_seeker(dataset, search_bag):
+    l = []
+    for item in dataset[search_bag]:
+        if dataset[item[1]]:
+            l.append(item[0] * recursive_product_seeker(dataset, item[1]) + item[0])
+        else:
+            l.append(item[0])
+    return sum(l)
 
 
 def assignment_2(args):
@@ -72,4 +68,4 @@ def cli():
 
 
 
-assignment_2(cli())
+assignment_1(cli())
