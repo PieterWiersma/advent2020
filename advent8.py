@@ -26,7 +26,6 @@ class Computer:
             self.step += instruction
 
 
-
 def create_instructions(inputfile):
     l = []
     for line in inputfile:
@@ -38,12 +37,11 @@ def create_instructions(inputfile):
     return l
 
 
-def assignment_1(args):
+def assignments(args):
     instructions = create_instructions(args.inputfile)
     computer = Computer()
-    nops_and_jumps = []
-    changed_instructions = []
     original = copy.deepcopy(instructions)
+    check = False
 
     for i, item in enumerate(original):
         while 1:
@@ -56,10 +54,13 @@ def assignment_1(args):
                 computer.acc(instruction['instr'])
 
             if computer.step in computer.history:
+                if not check:
+                    print("assignment_1: %s" % computer.acc_score)
+                    check = True
                 break;
 
             if computer.step >= len(instructions):
-                print(computer.acc_score)
+                print("assignment_2: %s" % computer.acc_score)
                 return
 
         instructions = copy.deepcopy(original)
@@ -67,12 +68,8 @@ def assignment_1(args):
             instructions[i]['name'] = 'jmp'
         if item['name'] == 'jmp':
             instructions[i]['name'] = 'nop'
+
         computer = Computer()
-
-    print(computer.acc_score)
-
-
-
 
 
 def cli():
@@ -83,4 +80,4 @@ def cli():
 
 
 
-assignment_1(cli())
+assignments(cli())
